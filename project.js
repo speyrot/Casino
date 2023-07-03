@@ -14,18 +14,18 @@ const ROWS = 3;
 const COLS = 3;
 
 const SYMBOLS_COUNT = {
-    "A": 2,
-    "B": 4,
-    "C": 6,
-    "D": 8
-}
+    A: 2,
+    B: 4,
+    C: 6,
+    D: 8
+};
 
 const SYMBOL_VALUES = {
-    "A": 5,
-    "B": 4,
-    "C": 3,
-    "D": 2
-}
+    A: 5,
+    B: 4,
+    C: 3,
+    D: 2
+};
 
 //Beg of Step 1
 
@@ -83,3 +83,34 @@ const getBet = (balance, lines) => {
 const bet = getBet(balance, lines);
 
 //End of Step 3
+
+//Beg Step 4
+
+const spin = () => {
+    const symbols = [];
+    for (const [symbol, count] of Object.entries(SYMBOLS_COUNT)) {
+        for (let i = 0; i < count; i++) {
+            symbols.push(symbol);
+        }
+    }
+
+    const reels = [[], [], []];
+    for (let i = 0; i < COLS; i++) {
+        const reelSymbols = [...symbols];
+
+        for (let j = 0; j < ROWS; j++){
+            const randomIndex = Math.floor(Math.random()* reelSymbols.length);
+            const selectedSymbol = reelSymbols[randomIndex];
+
+            reels[i].push(selectedSymbol);
+            reelSymbols.splice(randomIndex, 1);
+        }
+    }
+
+    return reels;
+};
+
+const reels = spin();
+console.log(reels);
+
+//End Step 4
